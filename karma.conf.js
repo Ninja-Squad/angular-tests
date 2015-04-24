@@ -17,7 +17,8 @@ module.exports = function(config) {
     files: [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'js/**/*.js'
+      'js/**/*.js',
+      'partials/*.html'
     ],
 
 
@@ -29,7 +30,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'js/src/**/*.js': ['coverage']
+        'js/src/**/*.js': ['coverage'],
+        '**/*.html': ['ng-html2js']
     },
 
 
@@ -68,6 +70,10 @@ module.exports = function(config) {
     coverageReporter: {
       type : 'html',
       dir : 'build/coverage/'
+    },
+
+    ngHtml2JsPreprocessor: {
+      moduleName: 'partials'
     }
   });
 };

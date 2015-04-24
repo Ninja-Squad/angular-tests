@@ -2,7 +2,7 @@ describe('avatar directive', function() {
 
     var largeElement, smallElement, $scope;
 
-    beforeEach(module('directives'));
+    beforeEach(module('directives', 'partials'));
 
     beforeEach(inject(function($compile, $rootScope) {
         $scope = $rootScope;
