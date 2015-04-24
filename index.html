@@ -7,6 +7,7 @@
     <script src="js/src/app.js"></script>
     <script src="js/src/controllers/HelloCtrl.js"></script>
     <script src="js/src/services/github.js"></script>
+    <script src="js/src/directives/avatar.js"></script>
 </head>
 <body>
     <h1>Hello</h1>
@@ -19,12 +20,12 @@
         <h2 ng-show="orgError">This organization doesn't exist.</h2>
         <div ng-show="org">
             <h2 >{{ org.name }}</h2>
-            <img ng-src="{{ org.avatar_url }}" style="width:50px; height: 50px;">
+            <avatar entity="org"></avatar>
             <div ng-show="org.blog"><a ng-href="{{ org.blog }}">Blog</a></div>
             <div><a ng-href="{{ org.html_url }}">GitHub page</a></div>
             <h3>Members</h3>
             <ul>
-                <li ng-repeat="member in org.members">{{ member.login }}</li>
+                <li ng-repeat="member in org.members"><avatar entity="member" size="small"></avatar>{{ member.login }}</li>
             </ul>
         </div>
     </div>
