@@ -1,12 +1,13 @@
 describe('HelloCtrl', function() {
 
-    var $scope, $httpBackend;
+    var $scope, $q, github;
 
     beforeEach(module('controllers'));
 
-    beforeEach(inject(function($controller, $rootScope, _$httpBackend_) {
+    beforeEach(inject(function($controller, $rootScope, _$q_, _github_) {
         $scope = $rootScope.$new();
-        $httpBackend = _$httpBackend_;
+        $q = _$q_;
+        github = _github_;
         $controller('HelloCtrl', {
             $scope: $scope
         });
@@ -18,12 +19,13 @@ describe('HelloCtrl', function() {
         var org = {
             name: 'Ninja Squad'
         };
-        $httpBackend.expectGET('https://api.github.com/orgs/Ninja-Squad').respond(org);
+        spyOn(github, 'getOrganization').and.returnValue($q.when(org));
 
         $scope.showOrg('Ninja-Squad');
+        
         expect($scope.orgError).toBeFalsy();
 
-        $httpBackend.flush();
+        $scope.$apply();
 
         expect($scope.org).toEqual(org);
     });
@@ -34,11 +36,11 @@ describe('HelloCtrl', function() {
             name: 'Ninja Squad'
         };
 
-        $httpBackend.expectGET('https://api.github.com/orgs/Not-Existing').respond(404);
+        spyOn(github, 'getOrganization').and.returnValue($q.reject());
 
         $scope.showOrg('Not-Existing');
 
-        $httpBackend.flush();
+        $scope.$apply();
 
         expect($scope.orgError).toBeTruthy();
         expect($scope.org).toBeFalsy();
