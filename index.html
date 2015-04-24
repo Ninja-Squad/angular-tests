@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html ng-app="app">
+<head>
+    <title>Hello world</title>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/src/app.js"></script>
+    <script src="js/src/controllers/HelloCtrl.js"></script>
+</head>
+<body>
+    <h1>Hello</h1>
+    <div ng-controller="HelloCtrl">
+        <form name="helloForm">
+            <input type="text" name="name" ng-model="name"/>
+            <button type="submit" ng-click="hello(name)">Hello</button>
+        </form>
+
+        <h2>{{ message }}</h2>
+    </div>
+</body>
