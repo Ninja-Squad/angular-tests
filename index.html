@@ -10,11 +10,17 @@
 <body>
     <h1>Hello</h1>
     <div ng-controller="HelloCtrl">
-        <form name="helloForm">
-            <input type="text" name="name" ng-model="name"/>
-            <button type="submit" ng-click="hello(name)">Hello</button>
+        <form name="orgForm">
+            <input type="text" name="login" ng-model="login"/>
+            <button type="submit" ng-click="showOrg(login)">Show GitHub organization</button>
         </form>
 
-        <h2>{{ message }}</h2>
+        <h2 ng-show="orgError">This organization doesn't exist.</h2>
+        <div ng-show="org">
+            <h2 >{{ org.name }}</h2>
+            <img ng-src="{{ org.avatar_url }}" style="width:50px; height: 50px;">
+            <div ng-show="org.blog"><a ng-href="{{ org.blog }}">Blog</a></div>
+            <div><a ng-href="{{ org.html_url }}">GitHub page</a></div>
+        </div>
     </div>
 </body>
