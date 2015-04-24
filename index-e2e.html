@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html ng-app="app">
+<head>
+    <title>Hello world</title>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/src/app.js"></script>
+    <script src="js/src/controllers/HelloCtrl.js"></script>
+    <script src="js/src/services/github.js"></script>
+    <script src="js/src/directives/avatar.js"></script>
+
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="e2e/mock-backend.js"></script>
+    
+</head>
+<body>
+    <h1>Hello</h1>
+    <div ng-controller="HelloCtrl">
+        <form name="orgForm">
+            <input id="login-input" type="text" name="login" ng-model="login" required ng-pattern="/^[a-zA-Z-]+$/"/>
+            <button id="show-button" type="submit" ng-click="showOrg(login)" ng-disabled="!orgForm.$valid">Show GitHub organization</button>
+        </form>
+
+        <h2 id="error" ng-show="orgError">This organization doesn't exist.</h2>
+        <div id="org" ng-show="org">
+            <h2 >{{ org.name }}</h2>
+            <avatar entity="org"></avatar>
+            <div ng-show="org.blog"><a ng-href="{{ org.blog }}">Blog</a></div>
+            <div><a ng-href="{{ org.html_url }}">GitHub page</a></div>
+            <h3>Members</h3>
+            <ul id="members">
+                <li ng-repeat="member in org.members"><avatar entity="member" size="small"></avatar>{{ member.login }}</li>
+            </ul>
+        </div>
+    </div>
+</body>

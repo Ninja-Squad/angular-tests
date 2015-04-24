@@ -1,7 +1,7 @@
 describe('index page', function() {
     
     beforeEach(function() {
-        browser.get('/');
+        browser.get('/index-e2e.html');
     });
 
     it('should have a h1', function() {
